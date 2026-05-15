@@ -113,48 +113,7 @@ code { font-family: var(--font-mono); font-size: 0.8125rem; background: var(--bg
 .kpi-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
 .charts-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
 .chart-full { grid-column: 1 / -1; }
-@media (max-width: 1280px) { 
-  .kpi-grid { grid-template-columns: repeat(2,1fr); } 
-}
 
-@media (max-width: 768px) { 
-  /* Grids */
-  .kpi-grid { grid-template-columns: 1fr; } 
-  .charts-grid { grid-template-columns: 1fr; } 
-  .admin-layout { grid-template-columns: 1fr; }
-  
-  /* Layout */
-  .main-content { margin-left: 0; padding-bottom: 60px; } 
-  .topbar { left: 0; padding: 0 12px; }
-  .page-body { padding: 12px; }
-  
-  /* Bottom Mobile Nav */
-  .sidebar {
-    top: auto;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    flex-direction: row;
-    border-right: none;
-    border-top: 1px solid var(--border);
-    z-index: 100;
-  }
-  .sidebar__logo, .sidebar__nav-label, .sidebar__footer { display: none; }
-  .sidebar__nav { flex-direction: row; padding: 0; justify-content: space-around; width: 100%; }
-  .nav-link { flex-direction: column; padding: 6px; font-size: 0.625rem; justify-content: center; gap: 4px; text-align: center; border-radius: 0; }
-  .nav-link__icon { width: auto; font-size: 1.25rem; }
-  
-  /* Filter Bar */
-  .filter-bar { flex-direction: column; align-items: stretch; gap: 12px; padding: 12px; }
-  .filter-bar__section { flex-direction: column; align-items: stretch; gap: 6px; }
-  .filter-bar__divider { width: 100%; height: 1px; margin: 4px 0; }
-  .input, .select { width: 100%; }
-  .filter-bar__section[style] { margin-left: 0 !important; } /* override inline style */
-  .toggle-group { display: flex; width: 100%; }
-  .toggle-btn { flex: 1; text-align: center; padding: 8px 0; }
-  .scenario-chips { justify-content: center; }
-  .scenario-chip { flex: 1; justify-content: center; padding: 8px; }
-}
 
 /* ── Filters ────────────────────────────────────────────── */
 .filter-bar { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 12px 20px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; }
@@ -224,3 +183,47 @@ code { font-family: var(--font-mono); font-size: 0.8125rem; background: var(--bg
 .font-mono  { font-family: var(--font-mono); }
 .font-600   { font-weight: 600; }
 .truncate   { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ── Mobile Overrides ───────────────────────────────────── */
+@media (max-width: 1280px) { 
+  .kpi-grid { grid-template-columns: repeat(2,1fr); } 
+}
+
+@media (max-width: 768px) { 
+  /* Grids */
+  .kpi-grid { grid-template-columns: 1fr; } 
+  .charts-grid { grid-template-columns: 1fr; } 
+  .admin-layout { grid-template-columns: 1fr; }
+  
+  /* Layout */
+  .main-content { margin-left: 0; padding-bottom: 60px; } 
+  .topbar { left: 0; padding: 0 12px; }
+  .page-body { padding: 12px; }
+  
+  /* Bottom Mobile Nav */
+  .sidebar {
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    flex-direction: row;
+    border-right: none;
+    border-top: 1px solid var(--border);
+    z-index: 100;
+  }
+  .sidebar__logo, .sidebar__nav-label, .sidebar__footer { display: none; }
+  .sidebar__nav { flex-direction: row; padding: 0; justify-content: space-around; width: 100%; }
+  .nav-link { flex-direction: column; padding: 6px; font-size: 0.625rem; justify-content: center; gap: 4px; text-align: center; border-radius: 0; }
+  .nav-link__icon { width: auto; font-size: 1.25rem; }
+  
+  /* Filter Bar */
+  .filter-bar { flex-direction: column; align-items: stretch; gap: 12px; padding: 12px; }
+  .filter-bar__section { flex-direction: column; align-items: stretch; gap: 6px; }
+  .filter-bar__divider { width: 100%; height: 1px; margin: 4px 0; }
+  .input, .select { width: 100%; }
+  .filter-bar__section[style] { margin-left: 0 !important; } /* override inline style */
+  .toggle-group { display: flex; width: 100%; }
+  .toggle-btn { flex: 1; text-align: center; padding: 8px 0; }
+  .scenario-chips { justify-content: center; }
+  .scenario-chip { flex: 1; justify-content: center; padding: 8px; }
+}
