@@ -1,0 +1,131 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "admin": "Settings",
+    "mainMenu": "Main Menu"
+  },
+  "topbar": {
+    "mockMode": "Mock Mode",
+    "liveMode": "Live Data"
+  },
+  "filters": {
+    "period": "Period",
+    "from": "From",
+    "to": "To",
+    "granularity": "Granularity",
+    "granDay": "Day",
+    "granMonth": "Month",
+    "granYear": "Year",
+    "subsistema": "Subsystem",
+    "allSubsistemas": "All",
+    "scenarios": "Quick Scenarios",
+    "clearScenario": "Clear",
+    "apply": "Apply Filters"
+  },
+  "scenarios": {
+    "drought": "Drought Years",
+    "thermalCrisis": "Thermal Crisis",
+    "peakHour": "Peak Hour"
+  },
+  "kpis": {
+    "cmoCard": {
+      "title": "Avg. CMO",
+      "subtitle": "Last 12 weeks"
+    },
+    "renovavelCard": {
+      "title": "% Renewable SIN",
+      "subtitle": "Selected period"
+    },
+    "cargaCard": {
+      "title": "Total Load",
+      "subtitle": "Selected period"
+    },
+    "cvuCard": {
+      "title": "Avg. CVU",
+      "subtitle": "Thermoelectric plants"
+    }
+  },
+  "charts": {
+    "cmoTemporal": {
+      "title": "CMO Evolution by Subsystem",
+      "subtitle": "Weekly Marginal Operating Cost (R$/MWh)"
+    },
+    "balanco": {
+      "title": "Generation Mix",
+      "subtitle": "Energy balance by source (TWh)"
+    },
+    "perfil": {
+      "title": "Intraday Demand Profile",
+      "subtitle": "Average demand by hour of day (TWh)"
+    },
+    "cvu": {
+      "title": "Top Plants by CVU",
+      "subtitle": "Average Unit Variable Cost (R$/MWh)"
+    },
+    "patamares": {
+      "title": "CMO by Load Level",
+      "subtitle": "Light, Medium and Heavy (R$/MWh)"
+    },
+    "intercambio": {
+      "title": "Exchange between Subsystems",
+      "subtitle": "Positive values = export (TWh)"
+    }
+  },
+  "legend": {
+    "hidraulica": "Hydraulic",
+    "termica": "Thermal",
+    "eolica": "Wind",
+    "fotovoltaica": "Solar",
+    "carga": "Load",
+    "intercambio": "Exchange",
+    "leve": "Light",
+    "medio": "Medium",
+    "pesado": "Heavy"
+  },
+  "admin": {
+    "title": "Manage KPIs",
+    "subtitle": "Enable, disable and reorder dashboard KPIs",
+    "newKpi": "New KPI",
+    "saveKpi": "Save",
+    "deactivate": "Deactivate",
+    "activate": "Activate",
+    "delete": "Delete",
+    "editorTitle": "KPI Editor",
+    "editorEmpty": "Select a KPI to edit",
+    "fields": {
+      "slug": "Slug",
+      "title": "Title",
+      "description": "Description",
+      "type": "Type",
+      "endpoint": "Endpoint",
+      "order": "Order",
+      "visible": "Visible",
+      "configJson": "Configuration (JSON)"
+    },
+    "types": {
+      "card": "Card",
+      "line": "Line",
+      "bar": "Bar",
+      "area": "Area",
+      "donut": "Donut"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error loading data",
+    "noData": "No data available",
+    "yes": "Yes",
+    "no": "No",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "version": "v1.0.0",
+    "dataSource": "Source: ONS",
+    "lastUpdate": "Updated at"
+  },
+  "units": {
+    "reaisMwh": "R$/MWh",
+    "gwh": "GWh",
+    "twh": "TWh",
+    "pct": "%"
+  }
+}

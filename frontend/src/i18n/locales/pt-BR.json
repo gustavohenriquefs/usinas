@@ -1,0 +1,131 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "admin": "Configurações",
+    "mainMenu": "Menu Principal"
+  },
+  "topbar": {
+    "mockMode": "Modo Mock",
+    "liveMode": "Dados em tempo real"
+  },
+  "filters": {
+    "period": "Período",
+    "from": "De",
+    "to": "Até",
+    "granularity": "Granularidade",
+    "granDay": "Dia",
+    "granMonth": "Mês",
+    "granYear": "Ano",
+    "subsistema": "Subsistema",
+    "allSubsistemas": "Todos",
+    "scenarios": "Cenários Rápidos",
+    "clearScenario": "Limpar",
+    "apply": "Aplicar Filtros"
+  },
+  "scenarios": {
+    "drought": "Anos de Seca",
+    "thermalCrisis": "Crise Térmica",
+    "peakHour": "Horário de Pico"
+  },
+  "kpis": {
+    "cmoCard": {
+      "title": "CMO Médio",
+      "subtitle": "Últimas 12 semanas"
+    },
+    "renovavelCard": {
+      "title": "% Renovável SIN",
+      "subtitle": "Período selecionado"
+    },
+    "cargaCard": {
+      "title": "Carga Total",
+      "subtitle": "Período selecionado"
+    },
+    "cvuCard": {
+      "title": "CVU Médio",
+      "subtitle": "Usinas termelétricas"
+    }
+  },
+  "charts": {
+    "cmoTemporal": {
+      "title": "Evolução do CMO por Subsistema",
+      "subtitle": "Custo Marginal de Operação semanal (R$/MWh)"
+    },
+    "balanco": {
+      "title": "Mix de Geração",
+      "subtitle": "Balanço energético por fonte (TWh)"
+    },
+    "perfil": {
+      "title": "Perfil Intradiário de Demanda",
+      "subtitle": "Demanda média por hora do dia (TWh)"
+    },
+    "cvu": {
+      "title": "Top Usinas por CVU",
+      "subtitle": "Custo Variável Unitário médio (R$/MWh)"
+    },
+    "patamares": {
+      "title": "CMO por Patamar de Carga",
+      "subtitle": "Leve, Médio e Pesado (R$/MWh)"
+    },
+    "intercambio": {
+      "title": "Intercâmbio entre Subsistemas",
+      "subtitle": "Valores positivos = exportação (TWh)"
+    }
+  },
+  "legend": {
+    "hidraulica": "Hidráulica",
+    "termica": "Térmica",
+    "eolica": "Eólica",
+    "fotovoltaica": "Fotovoltaica",
+    "carga": "Carga",
+    "intercambio": "Intercâmbio",
+    "leve": "Leve",
+    "medio": "Médio",
+    "pesado": "Pesado"
+  },
+  "admin": {
+    "title": "Gerenciar KPIs",
+    "subtitle": "Ative, desative e reordene os KPIs do dashboard",
+    "newKpi": "Novo KPI",
+    "saveKpi": "Salvar",
+    "deactivate": "Desativar",
+    "activate": "Ativar",
+    "delete": "Excluir",
+    "editorTitle": "Editor de KPI",
+    "editorEmpty": "Selecione um KPI para editar",
+    "fields": {
+      "slug": "Slug",
+      "title": "Título",
+      "description": "Descrição",
+      "type": "Tipo",
+      "endpoint": "Endpoint",
+      "order": "Ordem",
+      "visible": "Visível",
+      "configJson": "Configuração (JSON)"
+    },
+    "types": {
+      "card": "Card",
+      "line": "Linha",
+      "bar": "Barra",
+      "area": "Área",
+      "donut": "Rosca"
+    }
+  },
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro ao carregar dados",
+    "noData": "Nenhum dado disponível",
+    "yes": "Sim",
+    "no": "Não",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "version": "v1.0.0",
+    "dataSource": "Fonte: ONS",
+    "lastUpdate": "Atualizado em"
+  },
+  "units": {
+    "reaisMwh": "R$/MWh",
+    "gwh": "GWh",
+    "twh": "TWh",
+    "pct": "%"
+  }
+}
