@@ -27,3 +27,6 @@ htmlcov/
 # OS generated
 .DS_Store
 Thumbs.db
+
+# pyright output
+pyright_output.txt
