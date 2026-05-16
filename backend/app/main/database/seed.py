@@ -25,8 +25,8 @@ from sqlmodel import Session, select
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from main.database.session import engine  # noqa: E402
-from main.models import (  # noqa: E402
+from app.main.database.session import engine  # noqa: E402
+from app.main.models import (  # noqa: E402
     DimSubsistema,
     DimUsina,
 )
@@ -95,7 +95,7 @@ def seed_subsistemas(session: Session) -> dict[str, int]:
             session.add(DimSubsistema(codigo=codigo, nome=nome))
     session.commit()
 
-    mapping = {r.codigo: r.id for r in session.exec(select(DimSubsistema)).all()}
+    mapping = {r.codigo: r.id for r in session.exec(select(DimSubsistema)).all() if r.id is not None}
     log.info("  %d subsistemas carregados.", len(mapping))
     return mapping
 
