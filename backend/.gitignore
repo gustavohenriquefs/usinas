@@ -30,3 +30,8 @@ Thumbs.db
 
 # pyright output
 pyright_output.txt
+
+# Build / packaging artifacts
+*.egg-info/
+dist/
+build/
