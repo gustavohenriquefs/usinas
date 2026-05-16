@@ -51,7 +51,7 @@ export function CmoPatamares() {
               contentStyle={{ background: '#1c2128', border: '1px solid #30363d', borderRadius: 8 }}
               labelStyle={DARK}
               itemStyle={{ color: '#e6edf3', fontSize: 11 }}
-              formatter={(v: number) => [`${v.toFixed(cfg.decimais)} ${unidade}`]}
+              formatter={(v: unknown) => [`${(v as number).toFixed(cfg.decimais)} ${unidade}`]}
             />
             <Legend wrapperStyle={{ color: '#8b949e', fontSize: 11 }} />
             {/* cfg.cor is the accent — used only for the ReferenceLine */}
