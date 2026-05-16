@@ -3,11 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { useIntercambio } from '../../api/kpis';
 import { useFiltersStore } from '../../store/filtersStore';
 import { useChartConfig } from '../../hooks/useChartConfig';
+import { CoverageNote } from './CoverageNote';
 
 export function IntercambioChart() {
   const { t } = useTranslation();
   const { dataInicio, dataFim, granularidade } = useFiltersStore();
-  const { data = [], isLoading } = useIntercambio({ dataInicio, dataFim, granularidade });
+  const { data: response, isLoading } = useIntercambio({ dataInicio, dataFim, granularidade });
+
+  const data     = response?.items ?? [];
+  const coverage = response?.coverage ?? null;
   const cfg = useChartConfig('intercambio');
 
   const periodos    = [...new Set(data.map((d) => d.periodo))].sort();
@@ -22,7 +26,6 @@ export function IntercambioChart() {
     }],
   } : undefined;
 
-  // ECharts auto-assigns palette per subsistema series
   const series = subsistemas.map((cod, i) => ({
     name: cod,
     type: 'bar' as const,
@@ -53,6 +56,7 @@ export function IntercambioChart() {
       <div>
         <div className="chart-card__title">{t('charts.intercambio.title')}</div>
         <div className="chart-card__subtitle">{t('charts.intercambio.subtitle')}</div>
+        <CoverageNote coverage={coverage} />
       </div>
       {isLoading
         ? <div className="skeleton" style={{ height: 260 }} />

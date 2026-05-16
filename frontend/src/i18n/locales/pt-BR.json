@@ -120,7 +120,11 @@
     "noData": "Sem dados para o período selecionado:",
     "partialData": "Dados parciais para o período:",
     "available": "disponível de",
-    "to": "até"
+    "to": "até",
+    "note": {
+      "noData": "Sem dados para o período selecionado",
+      "partial": "Dados disponíveis de"
+    }
   },
   "common": {
     "loading": "Carregando...",

@@ -3,17 +3,20 @@ import { useTranslation } from 'react-i18next';
 import { useCvuUsinas } from '../../api/kpis';
 import { useFiltersStore } from '../../store/filtersStore';
 import { useChartConfig } from '../../hooks/useChartConfig';
+import { CoverageNote } from './CoverageNote';
 
 export function TopUsinasCvuChart() {
   const { t } = useTranslation();
   const { dataInicio, dataFim, subsistema } = useFiltersStore();
-  const { data = [], isLoading } = useCvuUsinas({ dataInicio, dataFim, subsistema, topN: 10 });
+  const { data: response, isLoading } = useCvuUsinas({ dataInicio, dataFim, subsistema, topN: 10 });
+
+  const data     = response?.items ?? [];
+  const coverage = response?.coverage ?? null;
   const cfg = useChartConfig('cvu-usinas');
 
   const sorted  = [...data].sort((a, b) => a.cvu_medio - b.cvu_medio);
   const unidade = cfg.unidade || 'R$/MWh';
 
-  // markLine on xAxis (vertical line = cost threshold)
   const markLine = cfg.meta != null ? {
     silent: true,
     data: [{ xAxis: cfg.meta,
@@ -22,7 +25,6 @@ export function TopUsinasCvuChart() {
     }],
   } : undefined;
 
-  // ECharts gradient-like heat coloring by value (no override needed)
   const option = {
     backgroundColor: 'transparent',
     tooltip: {
@@ -43,7 +45,6 @@ export function TopUsinasCvuChart() {
     yAxis: { type: 'category', data: sorted.map((d) => d.nome), axisLabel: { color: '#8b949e', fontSize: 10 } },
     series: [{
       type: 'bar' as const,
-      // Heat-coloring by value is a natural semantic choice for CVU; library itemStyle per datum
       data: sorted.map((d) => ({
         value: d.cvu_medio,
         itemStyle: { color: d.cvu_medio > 500 ? '#f85149' : d.cvu_medio > 350 ? '#e3b341' : '#3fb950' },
@@ -58,6 +59,7 @@ export function TopUsinasCvuChart() {
       <div>
         <div className="chart-card__title">{t('charts.cvu.title')}</div>
         <div className="chart-card__subtitle">{t('charts.cvu.subtitle')}</div>
+        <CoverageNote coverage={coverage} />
       </div>
       {isLoading
         ? <div className="skeleton" style={{ height: 300 }} />

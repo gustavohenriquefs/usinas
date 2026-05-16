@@ -3,14 +3,17 @@ import { useTranslation } from 'react-i18next';
 import { usePerfilDemanda } from '../../api/kpis';
 import { useFiltersStore } from '../../store/filtersStore';
 import { useChartConfig } from '../../hooks/useChartConfig';
+import { CoverageNote } from './CoverageNote';
 
 const HOURS = Array.from({ length: 24 }, (_, i) => `${String(i).padStart(2, '0')}h`);
 
 export function PerfilDemandaChart() {
   const { t } = useTranslation();
-  const { dataInicio, subsistema } = useFiltersStore();
-  const ano = new Date(dataInicio).getFullYear();
-  const { data = [], isLoading } = usePerfilDemanda({ dataInicio, dataFim: dataInicio, subsistema, ano });
+  const { dataInicio, dataFim, subsistema } = useFiltersStore();
+  const { data: response, isLoading } = usePerfilDemanda({ dataInicio, dataFim, subsistema });
+
+  const data     = response?.items ?? [];
+  const coverage = response?.coverage ?? null;
   const cfg = useChartConfig('perfil-demanda');
 
   const subs    = [...new Set(data.map((d) => d.codigo))].sort();
@@ -24,7 +27,6 @@ export function PerfilDemandaChart() {
     }],
   } : undefined;
 
-  // ECharts auto-assigns palette colors per series
   const series = subs.map((cod, i) => ({
     name: cod,
     type: 'line' as const,
@@ -57,6 +59,7 @@ export function PerfilDemandaChart() {
       <div>
         <div className="chart-card__title">{t('charts.perfil.title')}</div>
         <div className="chart-card__subtitle">{t('charts.perfil.subtitle')}</div>
+        <CoverageNote coverage={coverage} />
       </div>
       {isLoading
         ? <div className="skeleton" style={{ height: 260 }} />

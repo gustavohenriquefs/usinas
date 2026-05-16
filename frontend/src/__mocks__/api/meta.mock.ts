@@ -1,4 +1,4 @@
-import type { Subsistema, Usina } from '../../types';
+import type { Subsistema, Usina, DatasetCoverage } from '../../types';
 
 export const mockSubsistemas: Subsistema[] = [
   { id: 1, codigo: 'SE', nome: 'Sudeste / Centro-Oeste' },
@@ -19,4 +19,12 @@ export const mockUsinas: Usina[] = [
   { id: 8,  nome: 'Termeletric NE',  id_subsistema: 3, subsistema_codigo: 'NE' },
   { id: 9,  nome: 'Complexo Eólico', id_subsistema: 3, subsistema_codigo: 'NE' },
   { id: 10, nome: 'UTE Mauá 3',      id_subsistema: 2, subsistema_codigo: 'S'  },
+];
+
+export const mockCobertura: DatasetCoverage[] = [
+  { dataset: 'balanco-horario',  label: 'Balanço de Energia por Subsistema',          data_inicio: '2000-01-01', data_fim: '2024-02-29' },
+  { dataset: 'balanco-dessem',   label: 'Balanço de Energia por Subsistema (DESSEM)', data_inicio: '2020-01-01', data_fim: '2024-03-03' },
+  { dataset: 'cmo-semanal',      label: 'Custo Marginal de Operação Semanal',         data_inicio: '2005-01-01', data_fim: '2024-03-08' },
+  { dataset: 'cmo-semi-horario', label: 'Custo Marginal de Operação Semi-Horário',    data_inicio: '2020-01-01', data_fim: '2024-03-03' },
+  { dataset: 'cvu-usinas',       label: 'Custo Variável Unitário das Usinas Térmicas',data_inicio: '2019-12-28', data_fim: '2024-03-02' },
 ];

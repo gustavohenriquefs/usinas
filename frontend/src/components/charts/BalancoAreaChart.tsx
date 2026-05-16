@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useBalancoHorario } from '../../api/kpis';
 import { useFiltersStore } from '../../store/filtersStore';
 import { useChartConfig } from '../../hooks/useChartConfig';
+import { CoverageNote } from './CoverageNote';
 
 const FONTES = [
   { key: 'hidraulica_twh'   as const, i18n: 'legend.hidraulica' },
@@ -14,7 +15,10 @@ const FONTES = [
 export function BalancoAreaChart() {
   const { t } = useTranslation();
   const { dataInicio, dataFim, subsistema, granularidade } = useFiltersStore();
-  const { data = [], isLoading } = useBalancoHorario({ dataInicio, dataFim, subsistema, granularidade });
+  const { data: response, isLoading } = useBalancoHorario({ dataInicio, dataFim, subsistema, granularidade });
+
+  const data     = response?.items ?? [];
+  const coverage = response?.coverage ?? null;
   const cfg = useChartConfig('balanco-horario');
 
   const periodos = [...new Set(data.map((d) => d.periodo))].sort();
@@ -59,6 +63,7 @@ export function BalancoAreaChart() {
       <div>
         <div className="chart-card__title">{t('charts.balanco.title')}</div>
         <div className="chart-card__subtitle">{t('charts.balanco.subtitle')}</div>
+        <CoverageNote coverage={coverage} />
       </div>
       {isLoading
         ? <div className="skeleton" style={{ height: 280 }} />

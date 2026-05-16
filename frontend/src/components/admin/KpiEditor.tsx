@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as Switch from '@radix-ui/react-switch';
 import { toast } from 'sonner';
@@ -33,14 +33,14 @@ export function KpiEditor({ kpi }: KpiEditorProps) {
     setJsonError('');
   }, [kpi]);
 
-  // Toast on save success / error
+  // Toast on save success / error — use status transitions to avoid re-firing on language change
+  const prevStatus = useRef(update.status);
   useEffect(() => {
+    if (update.status === prevStatus.current) return;
+    prevStatus.current = update.status;
     if (update.isSuccess) toast.success(t('admin.saved'));
-  }, [update.isSuccess, t]);
-
-  useEffect(() => {
-    if (update.isError) toast.error(t('common.error'));
-  }, [update.isError, t]);
+    if (update.isError)   toast.error(t('common.error'));
+  }, [update.status, update.isSuccess, update.isError, t]);
 
   if (!kpi) {
     return (

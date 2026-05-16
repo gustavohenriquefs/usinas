@@ -1,8 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useCmoSemanal } from '../../api/kpis';
-import { useCvuUsinas } from '../../api/kpis';
-import { useRenovavel } from '../../api/kpis';
-import { useBalancoHorario } from '../../api/kpis';
+import { useCmoSemanal, useCvuUsinas, useRenovavel, useBalancoHorario } from '../../api/kpis';
 import { useFiltersStore } from '../../store/filtersStore';
 
 function Skeleton() {
@@ -13,9 +10,10 @@ function Skeleton() {
 export function CmoCard() {
   const { t } = useTranslation();
   const { dataInicio, dataFim, subsistema } = useFiltersStore();
-  const { data, isLoading } = useCmoSemanal({ dataInicio, dataFim, subsistema });
+  const { data: response, isLoading } = useCmoSemanal({ dataInicio, dataFim, subsistema });
 
-  const seData = data?.filter((d) => d.codigo === (subsistema ?? 'SE')) ?? [];
+  const data   = response?.items ?? [];
+  const seData = data.filter((d) => d.codigo === (subsistema ?? 'SE'));
   const latest = seData.at(-1)?.cmo_medio_reais_mwh ?? 0;
   const prev   = seData.at(-2)?.cmo_medio_reais_mwh ?? 0;
   const delta  = prev ? ((latest - prev) / prev) * 100 : 0;
@@ -46,10 +44,11 @@ export function CmoCard() {
 export function RenovavelCard() {
   const { t } = useTranslation();
   const { dataInicio, dataFim, subsistema } = useFiltersStore();
-  const { data, isLoading } = useRenovavel({ dataInicio, dataFim, subsistema });
+  const { data: response, isLoading } = useRenovavel({ dataInicio, dataFim, subsistema });
 
-  const sinAvg = data
-    ? data.reduce((s, d) => s + d.pct_renovavel, 0) / (data.length || 1)
+  const data   = response?.items ?? [];
+  const sinAvg = data.length
+    ? data.reduce((s, d) => s + d.pct_renovavel, 0) / data.length
     : 0;
 
   const getBadge = (v: number) =>
@@ -81,10 +80,10 @@ export function RenovavelCard() {
 export function CargaCard() {
   const { t } = useTranslation();
   const { dataInicio, dataFim, subsistema, granularidade } = useFiltersStore();
-  const { data, isLoading } = useBalancoHorario({ dataInicio, dataFim, subsistema, granularidade });
+  const { data: response, isLoading } = useBalancoHorario({ dataInicio, dataFim, subsistema, granularidade });
 
-  const totalTwh = data?.reduce((s, d) => s + d.carga_twh, 0) ?? 0;
-  const totalGwh = totalTwh * 1000;
+  const data     = response?.items ?? [];
+  const totalGwh = data.reduce((s, d) => s + d.carga_twh, 0) * 1000;
 
   return (
     <div className="card" id="kpi-card-carga">
@@ -109,10 +108,11 @@ export function CargaCard() {
 export function CvuCard() {
   const { t } = useTranslation();
   const { dataInicio, dataFim, subsistema } = useFiltersStore();
-  const { data, isLoading } = useCvuUsinas({ dataInicio, dataFim, subsistema });
+  const { data: response, isLoading } = useCvuUsinas({ dataInicio, dataFim, subsistema });
 
-  const avgCvu = data
-    ? data.reduce((s, d) => s + d.cvu_medio, 0) / (data.length || 1)
+  const data   = response?.items ?? [];
+  const avgCvu = data.length
+    ? data.reduce((s, d) => s + d.cvu_medio, 0) / data.length
     : 0;
 
   const getBadge = (v: number) =>

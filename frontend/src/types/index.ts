@@ -146,3 +146,20 @@ export interface KpiQueryParams {
   topN?: number;
   ano?: number;
 }
+
+// ── Data Coverage (returned alongside KPI data) ──────────────
+/** Período efetivamente coberto pelos dados retornados pela API */
+export interface DataCoverage {
+  data_inicio_solicitada: string;
+  data_fim_solicitada: string;
+  data_inicio_efetiva: string | null;
+  data_fim_efetiva: string | null;
+  /** false quando o dataset não cobre todo o período solicitado */
+  cobertura_completa: boolean;
+}
+
+export interface KpiResponse<T> {
+  items: T[];
+  total: number;
+  coverage: DataCoverage | null;
+}

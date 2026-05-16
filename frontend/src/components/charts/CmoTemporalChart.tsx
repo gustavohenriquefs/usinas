@@ -3,11 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { useCmoSemanal } from '../../api/kpis';
 import { useFiltersStore } from '../../store/filtersStore';
 import { useChartConfig } from '../../hooks/useChartConfig';
+import { CoverageNote } from './CoverageNote';
 
 export function CmoTemporalChart() {
   const { t } = useTranslation();
   const { dataInicio, dataFim, subsistema } = useFiltersStore();
-  const { data = [], isLoading } = useCmoSemanal({ dataInicio, dataFim, subsistema });
+  const { data: response, isLoading } = useCmoSemanal({ dataInicio, dataFim, subsistema });
+
+  const data     = response?.items ?? [];
+  const coverage = response?.coverage ?? null;
   const cfg = useChartConfig('cmo-semanal');
 
   const subsistemas = [...new Set(data.map((d) => d.codigo))].sort();
@@ -55,6 +59,7 @@ export function CmoTemporalChart() {
       <div>
         <div className="chart-card__title">{t('charts.cmoTemporal.title')}</div>
         <div className="chart-card__subtitle">{t('charts.cmoTemporal.subtitle')}</div>
+        <CoverageNote coverage={coverage} />
       </div>
       {isLoading
         ? <div className="skeleton" style={{ height: 280 }} />

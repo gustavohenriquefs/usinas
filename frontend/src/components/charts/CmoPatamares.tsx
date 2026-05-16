@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useCmoSemanal } from '../../api/kpis';
 import { useFiltersStore } from '../../store/filtersStore';
 import { useChartConfig } from '../../hooks/useChartConfig';
+import { CoverageNote } from './CoverageNote';
 
 // Semantic patamar colors — fixed, not overridable by cfg.cor
 const PATAMAR_COLORS = { leve: '#3fb950', medio: '#e3b341', pesado: '#f85149' };
@@ -13,7 +14,10 @@ const PATAMAR_COLORS = { leve: '#3fb950', medio: '#e3b341', pesado: '#f85149' };
 export function CmoPatamares() {
   const { t } = useTranslation();
   const { dataInicio, dataFim } = useFiltersStore();
-  const { data = [], isLoading } = useCmoSemanal({ dataInicio, dataFim });
+  const { data: response, isLoading } = useCmoSemanal({ dataInicio, dataFim });
+
+  const data     = response?.items ?? [];
+  const coverage = response?.coverage ?? null;
   const cfg = useChartConfig('cmo-patamares');
 
   const subsistemas = [...new Set(data.map((d) => d.codigo))].sort();
@@ -38,6 +42,7 @@ export function CmoPatamares() {
       <div>
         <div className="chart-card__title">{t('charts.patamares.title')}</div>
         <div className="chart-card__subtitle">{t('charts.patamares.subtitle')}</div>
+        <CoverageNote coverage={coverage} />
       </div>
       {isLoading ? (
         <div className="skeleton" style={{ height: 260 }} />
@@ -54,7 +59,6 @@ export function CmoPatamares() {
               formatter={(v: unknown) => [`${(v as number).toFixed(cfg.decimais)} ${unidade}`]}
             />
             <Legend wrapperStyle={{ color: '#8b949e', fontSize: 11 }} />
-            {/* cfg.cor is the accent — used only for the ReferenceLine */}
             {cfg.meta != null && (
               <ReferenceLine
                 y={cfg.meta}

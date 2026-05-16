@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFiltersStore } from '../../store/filtersStore';
 import { useSubsistemas } from '../../api/meta';
+import { CoverageWarning } from './CoverageWarning';
 import type { ScenarioKey } from '../../types';
 
 const SCENARIOS: Array<{ key: NonNullable<ScenarioKey>; emoji: string; i18nKey: string }> = [
@@ -20,6 +21,8 @@ export function GlobalFilterBar() {
   const { t } = useTranslation();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const {
+    dataInicio: appliedDataInicio,
+    dataFim:    appliedDataFim,   // período aplicado — só muda após "Aplicar Filtros"
     draft,
     setDraftDateRange, setDraftSubsistema, setDraftGranularidade, applyDraftScenario,
     applyFilters,
@@ -143,6 +146,9 @@ export function GlobalFilterBar() {
           </div>
         </div>
       )}
+
+      {/* Aviso de cobertura — usa período aplicado, não o draft */}
+      <CoverageWarning dataInicio={appliedDataInicio} dataFim={appliedDataFim} />
     </div>
   );
 }
