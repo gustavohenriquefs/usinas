@@ -14,8 +14,8 @@ const API_URL   = import.meta.env.VITE_API_URL ?? 'http://localhost:8000';
 
 function buildParams(p: KpiQueryParams): URLSearchParams {
   const params = new URLSearchParams({
-    data_inicio: p.dataInicio,
-    data_fim:    p.dataFim,
+    dataInicio: p.dataInicio,
+    dataFim:    p.dataFim,
   });
   if (p.subsistema)    params.set('subsistema',    p.subsistema);
   if (p.granularidade) params.set('granularidade', p.granularidade);
@@ -27,7 +27,8 @@ function buildParams(p: KpiQueryParams): URLSearchParams {
 async function get<T>(path: string, params: KpiQueryParams): Promise<T> {
   const res = await fetch(`${API_URL}${path}?${buildParams(params)}`);
   if (!res.ok) throw new Error(`Request failed: ${path}`);
-  return res.json();
+  const data = await res.json();
+  return data.items ?? data;
 }
 
 // ── CMO Semanal ───────────────────────────────────────────────

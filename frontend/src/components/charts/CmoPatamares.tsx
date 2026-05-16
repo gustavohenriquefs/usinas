@@ -1,27 +1,33 @@
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
-  Legend, ResponsiveContainer,
+  Legend, ReferenceLine, ResponsiveContainer,
 } from 'recharts';
 import { useTranslation } from 'react-i18next';
 import { useCmoSemanal } from '../../api/kpis';
 import { useFiltersStore } from '../../store/filtersStore';
+import { useChartConfig } from '../../hooks/useChartConfig';
+
+// Semantic patamar colors — fixed, not overridable by cfg.cor
+const PATAMAR_COLORS = { leve: '#3fb950', medio: '#e3b341', pesado: '#f85149' };
 
 export function CmoPatamares() {
   const { t } = useTranslation();
   const { dataInicio, dataFim } = useFiltersStore();
   const { data = [], isLoading } = useCmoSemanal({ dataInicio, dataFim });
+  const cfg = useChartConfig('cmo-patamares');
 
-  // Aggregate average by subsistema across all dates
   const subsistemas = [...new Set(data.map((d) => d.codigo))].sort();
+  const unidade = cfg.unidade || 'R$/MWh';
+
   const chartData = subsistemas.map((cod) => {
     const rows = data.filter((d) => d.codigo === cod);
     const avg = (key: keyof typeof rows[0]) =>
       rows.reduce((s, d) => s + (d[key] as number), 0) / (rows.length || 1);
     return {
       subsistema: cod,
-      [t('legend.leve')]:  +avg('cmo_carga_leve_reais_mwh').toFixed(1),
-      [t('legend.medio')]: +avg('cmo_carga_media_reais_mwh').toFixed(1),
-      [t('legend.pesado')]:+avg('cmo_carga_pesada_reais_mwh').toFixed(1),
+      [t('legend.leve')]:  +avg('cmo_carga_leve_reais_mwh').toFixed(cfg.decimais),
+      [t('legend.medio')]: +avg('cmo_carga_media_reais_mwh').toFixed(cfg.decimais),
+      [t('legend.pesado')]:+avg('cmo_carga_pesada_reais_mwh').toFixed(cfg.decimais),
     };
   });
 
@@ -45,11 +51,21 @@ export function CmoPatamares() {
               contentStyle={{ background: '#1c2128', border: '1px solid #30363d', borderRadius: 8 }}
               labelStyle={DARK}
               itemStyle={{ color: '#e6edf3', fontSize: 11 }}
+              formatter={(v: number) => [`${v.toFixed(cfg.decimais)} ${unidade}`]}
             />
             <Legend wrapperStyle={{ color: '#8b949e', fontSize: 11 }} />
-            <Bar dataKey={t('legend.leve')}   fill="#3fb950" radius={[3,3,0,0]} />
-            <Bar dataKey={t('legend.medio')}  fill="#e3b341" radius={[3,3,0,0]} />
-            <Bar dataKey={t('legend.pesado')} fill="#f85149" radius={[3,3,0,0]} />
+            {/* cfg.cor is the accent — used only for the ReferenceLine */}
+            {cfg.meta != null && (
+              <ReferenceLine
+                y={cfg.meta}
+                stroke={cfg.cor}
+                strokeDasharray="6 3"
+                label={{ value: `Meta: ${cfg.meta}`, fill: cfg.cor, fontSize: 10, position: 'insideTopRight' }}
+              />
+            )}
+            <Bar dataKey={t('legend.leve')}   fill={PATAMAR_COLORS.leve}   radius={[3,3,0,0]} />
+            <Bar dataKey={t('legend.medio')}  fill={PATAMAR_COLORS.medio}  radius={[3,3,0,0]} />
+            <Bar dataKey={t('legend.pesado')} fill={PATAMAR_COLORS.pesado} radius={[3,3,0,0]} />
           </BarChart>
         </ResponsiveContainer>
       )}

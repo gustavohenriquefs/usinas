@@ -13,7 +13,8 @@ export function useKpiConfigs() {
       if (USE_MOCKS) return mockKpiConfigs;
       const res = await fetch(`${API_URL}/api/admin/kpi-config`);
       if (!res.ok) throw new Error('Failed to fetch kpi-config');
-      return res.json();
+      const data = await res.json();
+      return data.items ?? data;
     },
   });
 }
@@ -25,7 +26,8 @@ export function useActiveKpiConfigs() {
       if (USE_MOCKS) return mockActiveKpiConfigs;
       const res = await fetch(`${API_URL}/api/admin/kpi-config/active`);
       if (!res.ok) throw new Error('Failed to fetch active kpi-config');
-      return res.json();
+      const data = await res.json();
+      return data.items ?? data;
     },
   });
 }

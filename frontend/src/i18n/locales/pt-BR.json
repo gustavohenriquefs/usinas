@@ -6,7 +6,8 @@
   },
   "topbar": {
     "mockMode": "Modo Mock",
-    "liveMode": "Dados em tempo real"
+    "liveMode": "Dados em tempo real",
+    "exportReport": "Exportar relatório"
   },
   "filters": {
     "period": "Período",
@@ -84,30 +85,34 @@
   },
   "admin": {
     "title": "Gerenciar KPIs",
-    "subtitle": "Ative, desative e reordene os KPIs do dashboard",
+    "subtitle": "Ative e desative os gráficos do dashboard",
     "newKpi": "Novo KPI",
-    "saveKpi": "Salvar",
-    "deactivate": "Desativar",
-    "activate": "Ativar",
-    "delete": "Excluir",
-    "editorTitle": "Editor de KPI",
+    "saveKpi": "Salvar alterações",
+    "saving": "Salvando...",
+    "saved": "Salvo com sucesso!",
+    "deactivate": "Ocultar do dashboard",
+    "activate": "Exibir no dashboard",
+    "editorTitle": "Editar KPI",
     "editorEmpty": "Selecione um KPI para editar",
+    "invalidJson": "JSON inválido — verifique a sintaxe antes de salvar",
     "fields": {
-      "slug": "Slug",
+      "slug": "Slug (identificador)",
       "title": "Título",
       "description": "Descrição",
-      "type": "Tipo",
-      "endpoint": "Endpoint",
-      "order": "Ordem",
-      "visible": "Visível",
-      "configJson": "Configuração (JSON)"
+      "visible": "Visível no dashboard",
+      "configJson": "Configuração visual (JSON)"
     },
-    "types": {
-      "card": "Card",
-      "line": "Linha",
-      "bar": "Barra",
-      "area": "Área",
-      "donut": "Rosca"
+    "jsonHelp": {
+      "title": "Como funciona o config_json?",
+      "desc": "Controla a aparência visual do gráfico. Todos os campos são opcionais.",
+      "fieldCol": "Campo",
+      "typeCol": "Tipo",
+      "descCol": "Descrição",
+      "corDesc": "Cor de acento para linha de meta e destaques (NÃO altera as séries do gráfico)",
+      "unidadeDesc": "Unidade no tooltip (ex: R$/MWh, TWh, %)",
+      "metaDesc": "Valor de referência — linha tracejada no gráfico",
+      "decimaisDesc": "Casas decimais na exibição (padrão: 2)",
+      "example": "Exemplo válido"
     }
   },
   "common": {

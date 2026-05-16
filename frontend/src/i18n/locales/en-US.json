@@ -6,7 +6,8 @@
   },
   "topbar": {
     "mockMode": "Mock Mode",
-    "liveMode": "Live Data"
+    "liveMode": "Live Data",
+    "exportReport": "Export report"
   },
   "filters": {
     "period": "Period",
@@ -84,30 +85,34 @@
   },
   "admin": {
     "title": "Manage KPIs",
-    "subtitle": "Enable, disable and reorder dashboard KPIs",
+    "subtitle": "Enable and disable dashboard charts",
     "newKpi": "New KPI",
-    "saveKpi": "Save",
-    "deactivate": "Deactivate",
-    "activate": "Activate",
-    "delete": "Delete",
-    "editorTitle": "KPI Editor",
+    "saveKpi": "Save changes",
+    "saving": "Saving...",
+    "saved": "Saved successfully!",
+    "deactivate": "Hide from dashboard",
+    "activate": "Show on dashboard",
+    "editorTitle": "Edit KPI",
     "editorEmpty": "Select a KPI to edit",
+    "invalidJson": "Invalid JSON — please check the syntax before saving",
     "fields": {
-      "slug": "Slug",
+      "slug": "Slug (identifier)",
       "title": "Title",
       "description": "Description",
-      "type": "Type",
-      "endpoint": "Endpoint",
-      "order": "Order",
-      "visible": "Visible",
-      "configJson": "Configuration (JSON)"
+      "visible": "Visible on dashboard",
+      "configJson": "Visual configuration (JSON)"
     },
-    "types": {
-      "card": "Card",
-      "line": "Line",
-      "bar": "Bar",
-      "area": "Area",
-      "donut": "Donut"
+    "jsonHelp": {
+      "title": "How does config_json work?",
+      "desc": "Controls the chart's visual appearance. All fields are optional.",
+      "fieldCol": "Field",
+      "typeCol": "Type",
+      "descCol": "Description",
+      "corDesc": "Accent color for the reference line and highlights (does NOT change series colors)",
+      "unidadeDesc": "Unit shown in tooltip (e.g. R$/MWh, TWh, %)",
+      "metaDesc": "Reference value — shown as a dashed line on the chart",
+      "decimaisDesc": "Decimal places in display (default: 2)",
+      "example": "Valid example"
     }
   },
   "common": {

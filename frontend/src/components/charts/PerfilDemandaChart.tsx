@@ -2,8 +2,8 @@ import ReactECharts from 'echarts-for-react';
 import { useTranslation } from 'react-i18next';
 import { usePerfilDemanda } from '../../api/kpis';
 import { useFiltersStore } from '../../store/filtersStore';
+import { useChartConfig } from '../../hooks/useChartConfig';
 
-const COLORS: Record<string, string> = { SE: '#58a6ff', S: '#3fb950', NE: '#e3b341', N: '#bc8cff' };
 const HOURS = Array.from({ length: 24 }, (_, i) => `${String(i).padStart(2, '0')}h`);
 
 export function PerfilDemandaChart() {
@@ -11,28 +11,44 @@ export function PerfilDemandaChart() {
   const { dataInicio, subsistema } = useFiltersStore();
   const ano = new Date(dataInicio).getFullYear();
   const { data = [], isLoading } = usePerfilDemanda({ dataInicio, dataFim: dataInicio, subsistema, ano });
+  const cfg = useChartConfig('perfil-demanda');
 
-  const subs = [...new Set(data.map((d) => d.codigo))].sort();
+  const subs    = [...new Set(data.map((d) => d.codigo))].sort();
+  const unidade = cfg.unidade || 'GWh';
 
-  const series = subs.map((cod) => ({
+  const markLine = cfg.meta != null ? {
+    silent: true,
+    data: [{ yAxis: cfg.meta,
+      label: { formatter: `Meta: ${cfg.meta.toFixed(cfg.decimais)} ${unidade}`, color: cfg.cor },
+      lineStyle: { type: 'dashed' as const, color: cfg.cor, width: 1.5 },
+    }],
+  } : undefined;
+
+  // ECharts auto-assigns palette colors per series
+  const series = subs.map((cod, i) => ({
     name: cod,
-    type: 'line',
+    type: 'line' as const,
     smooth: true,
     data: HOURS.map((_, h) => {
       const row = data.find((d) => d.codigo === cod && d.hora_dia === h);
-      return row ? +(row.demanda_media_twh * 1000).toFixed(4) : null;
+      return row ? +(row.demanda_media_twh * 1000).toFixed(cfg.decimais) : null;
     }),
     lineStyle: { width: 2 },
-    itemStyle: { color: COLORS[cod] ?? '#58a6ff' },
+    ...(i === 0 && markLine ? { markLine } : {}),
   }));
 
   const option = {
     backgroundColor: 'transparent',
-    tooltip: { trigger: 'axis', backgroundColor: '#1c2128', borderColor: '#30363d', textStyle: { color: '#e6edf3', fontSize: 12 } },
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: '#1c2128', borderColor: '#30363d',
+      textStyle: { color: '#e6edf3', fontSize: 12 },
+      valueFormatter: (v: number) => `${v.toFixed(cfg.decimais)} ${unidade}`,
+    },
     legend: { data: subs, textStyle: { color: '#8b949e', fontSize: 11 }, top: 0 },
     grid: { left: 55, right: 20, top: 36, bottom: 28 },
     xAxis: { type: 'category', data: HOURS, axisLabel: { color: '#6e7681', fontSize: 10 }, axisLine: { lineStyle: { color: '#30363d' } } },
-    yAxis: { type: 'value', name: 'GWh', axisLabel: { color: '#6e7681', fontSize: 10 }, splitLine: { lineStyle: { color: '#21262d' } } },
+    yAxis: { type: 'value', name: unidade, axisLabel: { color: '#6e7681', fontSize: 10 }, splitLine: { lineStyle: { color: '#21262d' } } },
     series,
   };
 
