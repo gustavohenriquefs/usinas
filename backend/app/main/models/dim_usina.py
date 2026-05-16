@@ -14,7 +14,7 @@ class DimUsina(SQLModel, table=True):
     existir em subsistemas diferentes no modelo ONS.
     """
 
-    __tablename__ = "dim_usina"
+    __tablename__: str = "dim_usina"  # type: ignore
     __table_args__ = (UniqueConstraint("id_modelo", "id_subsistema"),)
 
     id: int | None = Field(default=None, primary_key=True)

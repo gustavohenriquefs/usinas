@@ -17,7 +17,7 @@ class FatoCmoSemiHorario(SQLModel, table=True):
     Valor em R$/MWh com 4 casas decimais.
     """
 
-    __tablename__ = "fato_cmo_semi_horario"
+    __tablename__: str = "fato_cmo_semi_horario"  # type: ignore
     __table_args__ = (UniqueConstraint("data", "hora", "id_subsistema"),)
 
     id: int | None = Field(default=None, primary_key=True)

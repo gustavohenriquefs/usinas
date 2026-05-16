@@ -2,7 +2,7 @@ from collections.abc import Generator
 
 from sqlmodel import Session, create_engine
 
-from main.core.config import settings
+from app.main.core.config import settings
 
 engine = create_engine(settings.database_url, echo=False)
 

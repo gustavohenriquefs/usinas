@@ -16,7 +16,7 @@ class FatoBalancoEnergiaDessem(SQLModel, table=True):
     Valores de energia em Wh — BIGINT necessário (chegam a ~10^13).
     """
 
-    __tablename__ = "fato_balanco_energia_dessem"
+    __tablename__: str = "fato_balanco_energia_dessem"  # type: ignore
     __table_args__ = (UniqueConstraint("data", "hora", "id_subsistema"),)
 
     id: int | None = Field(default=None, primary_key=True)

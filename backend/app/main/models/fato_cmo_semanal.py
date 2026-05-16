@@ -17,7 +17,7 @@ class FatoCmoSemanal(SQLModel, table=True):
     Valores em R$/MWh com 4 casas decimais (NUMERIC evita erros de float).
     """
 
-    __tablename__ = "fato_cmo_semanal"
+    __tablename__: str = "fato_cmo_semanal"  # type: ignore
     __table_args__ = (UniqueConstraint("data", "id_subsistema"),)
 
     id: int | None = Field(default=None, primary_key=True)

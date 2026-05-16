@@ -16,7 +16,7 @@ class FatoCvuUsinaTermica(SQLModel, table=True):
     são acionadas primeiro. Valor em R$/MWh com 4 casas decimais.
     """
 
-    __tablename__ = "fato_cvu_usinas_termicas"
+    __tablename__: str = "fato_cvu_usinas_termicas"  # type: ignore
     __table_args__ = (UniqueConstraint("data_inicio", "id_usina", "numero_revisao"),)
 
     id: int | None = Field(default=None, primary_key=True)

@@ -17,7 +17,7 @@ class DimSubsistema(SQLModel, table=True):
     Serve como dimensão central referenciada por todas as tabelas de fato.
     """
 
-    __tablename__ = "dim_subsistema"
+    __tablename__: str = "dim_subsistema"  # type: ignore
 
     id: int | None = Field(default=None, primary_key=True)
     codigo: str = Field(max_length=10, unique=True, index=True)
