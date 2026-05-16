@@ -115,6 +115,13 @@
       "example": "Valid example"
     }
   },
+  "coverage": {
+    "ariaLabel": "Data coverage warning",
+    "noData": "No data available for the selected period:",
+    "partialData": "Partial data for the selected period:",
+    "available": "available from",
+    "to": "to"
+  },
   "common": {
     "loading": "Loading...",
     "error": "Error loading data",

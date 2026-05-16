@@ -115,6 +115,13 @@
       "example": "Exemplo válido"
     }
   },
+  "coverage": {
+    "ariaLabel": "Aviso de cobertura de dados",
+    "noData": "Sem dados para o período selecionado:",
+    "partialData": "Dados parciais para o período:",
+    "available": "disponível de",
+    "to": "até"
+  },
   "common": {
     "loading": "Carregando...",
     "error": "Erro ao carregar dados",

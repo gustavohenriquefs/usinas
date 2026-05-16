@@ -20,6 +20,14 @@ export interface Usina {
   subsistema_codigo: string;
 }
 
+/** GET /api/meta/cobertura — cobertura temporal de cada dataset */
+export interface DatasetCoverage {
+  dataset: string;   // slug, ex: "balanco-horario"
+  label: string;     // nome legível
+  data_inicio: string; // "YYYY-MM-DD"
+  data_fim: string;    // "YYYY-MM-DD"
+}
+
 // ── Admin ────────────────────────────────────────────────────
 /** KPI type, mirrors backend enum */
 export type KpiTipo = 'card' | 'line' | 'bar' | 'area' | 'donut';
