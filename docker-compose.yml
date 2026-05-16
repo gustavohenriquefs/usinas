@@ -25,6 +25,46 @@ services:
     networks:
       - igeos_network
 
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: igeos_api
+    container_name: igeos_api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - igeos_network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    env_file:
+      - .env
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: igeos_frontend
+    container_name: igeos_frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - igeos_network
+    environment:
+      - SERVER_NAME=${SERVER_NAME:-localhost}
+    
 volumes:
   postgres_data: 
 
