@@ -13,8 +13,8 @@ const PATAMAR_COLORS = { leve: '#3fb950', medio: '#e3b341', pesado: '#f85149' };
 
 export function CmoPatamares() {
   const { t } = useTranslation();
-  const { dataInicio, dataFim } = useFiltersStore();
-  const { data: response, isLoading } = useCmoSemanal({ dataInicio, dataFim });
+  const { dataInicio, dataFim, subsistema } = useFiltersStore();
+  const { data: response, isLoading } = useCmoSemanal({ dataInicio, dataFim, subsistema });
 
   const data     = response?.items ?? [];
   const coverage = response?.coverage ?? null;
