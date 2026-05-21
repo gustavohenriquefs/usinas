@@ -30,21 +30,19 @@
   },
   "kpis": {
     "cmoCard": {
-      "title": "Avg. CMO",
-      "subtitle": "Last 12 weeks"
+      "title": "Avg. CMO"
     },
     "renovavelCard": {
-      "title": "% Renewable SIN",
-      "subtitle": "Selected period"
+      "title": "% Renewable SIN"
     },
     "cargaCard": {
-      "title": "Total Load",
-      "subtitle": "Selected period"
+      "title": "Total Load"
     },
     "cvuCard": {
       "title": "Avg. CVU",
       "subtitle": "Thermoelectric plants"
-    }
+    },
+    "periodLabel": "{{inicio}} → {{fim}}"
   },
   "charts": {
     "cmoTemporal": {

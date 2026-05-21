@@ -30,21 +30,19 @@
   },
   "kpis": {
     "cmoCard": {
-      "title": "CMO Médio",
-      "subtitle": "Últimas 12 semanas"
+      "title": "CMO Médio"
     },
     "renovavelCard": {
-      "title": "% Renovável SIN",
-      "subtitle": "Período selecionado"
+      "title": "% Renovável SIN"
     },
     "cargaCard": {
-      "title": "Carga Total",
-      "subtitle": "Período selecionado"
+      "title": "Carga Total"
     },
     "cvuCard": {
       "title": "CVU Médio",
       "subtitle": "Usinas termelétricas"
-    }
+    },
+    "periodLabel": "{{inicio}} → {{fim}}"
   },
   "charts": {
     "cmoTemporal": {

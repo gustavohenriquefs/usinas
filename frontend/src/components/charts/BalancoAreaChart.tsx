@@ -24,23 +24,30 @@ export function BalancoAreaChart() {
   const periodos = [...new Set(data.map((d) => d.periodo))].sort();
   const unidade  = cfg.unidade || 'TWh';
 
-  const markLine = cfg.meta != null ? {
+  // Série fantasma: carrega o markLine independente do que o usuário oculta na legenda
+  const ghostSeries = cfg.meta != null ? [{
+    name: '__meta__',
+    type: 'bar' as const,
+    data: [],
     silent: true,
-    data: [{ yAxis: cfg.meta,
-      label: { formatter: `Meta: ${cfg.meta.toFixed(cfg.decimais)} ${unidade}`, color: cfg.cor },
-      lineStyle: { type: 'dashed' as const, color: cfg.cor, width: 1.5 },
-    }],
-  } : undefined;
+    legendHoverLink: false,
+    markLine: {
+      silent: true,
+      symbol: ['none', 'arrow'],
+      data: [{ yAxis: cfg.meta,
+        label: { formatter: `Meta: ${cfg.meta.toFixed(cfg.decimais)} ${unidade}`, color: cfg.cor },
+        lineStyle: { type: 'dashed' as const, color: cfg.cor, width: 1.5 },
+      }],
+    },
+  }] : [];
 
-  // ECharts handles palette automatically per series
-  const series = FONTES.map((f, i) => ({
+  const dataSeries = FONTES.map((f) => ({
     name: t(f.i18n),
     type: 'bar' as const,
     stack: 'total',
     data: periodos.map(
       (p) => data.filter((d) => d.periodo === p).reduce((s, d) => s + d[f.key], 0)
     ),
-    ...(i === 0 && markLine ? { markLine } : {}),
   }));
 
   const option = {
@@ -51,11 +58,15 @@ export function BalancoAreaChart() {
       textStyle: { color: '#e6edf3', fontSize: 12 },
       valueFormatter: (v: number) => `${v.toFixed(cfg.decimais)} ${unidade}`,
     },
-    legend: { textStyle: { color: '#8b949e', fontSize: 11 }, top: 0 },
+    legend: {
+      data: FONTES.map((f) => t(f.i18n)), // exclui '__meta__' da legenda
+      textStyle: { color: '#8b949e', fontSize: 11 },
+      top: 0,
+    },
     grid: { left: 50, right: 20, top: 36, bottom: 28 },
     xAxis: { type: 'category', data: periodos, axisLabel: { color: '#6e7681', fontSize: 10 }, axisLine: { lineStyle: { color: '#30363d' } } },
     yAxis: { type: 'value', axisLabel: { color: '#6e7681', fontSize: 10, formatter: (v: number) => `${v.toFixed(0)} ${unidade}` }, splitLine: { lineStyle: { color: '#21262d' } } },
-    series,
+    series: [...dataSeries, ...ghostSeries],
   };
 
   return (

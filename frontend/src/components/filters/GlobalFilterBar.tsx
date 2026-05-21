@@ -123,7 +123,7 @@ export function GlobalFilterBar() {
                   key={key}
                   id={`scenario-${key}`}
                   className={`scenario-chip${scenario === key ? ' active' : ''}`}
-                  onClick={() => applyDraftScenario(scenario === key ? null : key)}
+                  onClick={() => applyDraftScenario(key)}
                   title={t(i18nKey)}
                 >
                   {emoji} {t(i18nKey)}

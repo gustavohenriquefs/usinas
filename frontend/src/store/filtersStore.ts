@@ -46,7 +46,13 @@ export const useFiltersStore = create<FiltersState>((set) => ({
       },
     };
 
-    set((state) => ({ draft: { ...state.draft, ...presets[key] } }));
+    // Toggle: clicar no cenário ativo o desativa
+    set((state) => {
+      if (state.draft.scenario === key) {
+        return { draft: { ...state.draft, scenario: null } };
+      }
+      return { draft: { ...state.draft, ...presets[key] } };
+    });
   },
 
   applyFilters: () =>
