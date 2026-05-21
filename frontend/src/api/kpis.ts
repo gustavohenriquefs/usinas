@@ -15,7 +15,6 @@ const API_URL   = import.meta.env.VITE_API_URL ?? 'http://localhost:8000';
 function buildParams(p: KpiQueryParams): URLSearchParams {
   const params = new URLSearchParams({ dataInicio: p.dataInicio, dataFim: p.dataFim });
   if (p.subsistema)    params.set('subsistema',    p.subsistema);
-  if (p.granularidade) params.set('granularidade', p.granularidade);
   if (p.topN)          params.set('top_n',         String(p.topN));
   if (p.ano)           params.set('ano',            String(p.ano));
   return params;

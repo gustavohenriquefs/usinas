@@ -86,8 +86,8 @@ export function RenovavelCard() {
 // ── Carga Card ────────────────────────────────────────────────
 export function CargaCard() {
   const { t, i18n } = useTranslation();
-  const { dataInicio, dataFim, subsistema, granularidade } = useFiltersStore();
-  const { data: response, isLoading } = useBalancoHorario({ dataInicio, dataFim, subsistema, granularidade });
+  const { dataInicio, dataFim, subsistema } = useFiltersStore();
+  const { data: response, isLoading } = useBalancoHorario({ dataInicio, dataFim, subsistema });
 
   const data     = response?.items ?? [];
   const totalGwh = data.reduce((s, d) => s + d.carga_twh, 0) * 1000;

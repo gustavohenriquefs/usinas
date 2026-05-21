@@ -14,8 +14,8 @@ const FONTES = [
 
 export function BalancoAreaChart() {
   const { t } = useTranslation();
-  const { dataInicio, dataFim, subsistema, granularidade } = useFiltersStore();
-  const { data: response, isLoading } = useBalancoHorario({ dataInicio, dataFim, subsistema, granularidade });
+  const { dataInicio, dataFim, subsistema } = useFiltersStore();
+  const { data: response, isLoading } = useBalancoHorario({ dataInicio, dataFim, subsistema });
 
   const data     = response?.items ?? [];
   const coverage = response?.coverage ?? null;

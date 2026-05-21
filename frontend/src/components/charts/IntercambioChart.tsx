@@ -7,8 +7,8 @@ import { CoverageNote } from './CoverageNote';
 
 export function IntercambioChart() {
   const { t } = useTranslation();
-  const { dataInicio, dataFim, granularidade } = useFiltersStore();
-  const { data: response, isLoading } = useIntercambio({ dataInicio, dataFim, granularidade });
+  const { dataInicio, dataFim } = useFiltersStore();
+  const { data: response, isLoading } = useIntercambio({ dataInicio, dataFim });
 
   const data     = response?.items ?? [];
   const coverage = response?.coverage ?? null;

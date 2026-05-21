@@ -11,12 +11,6 @@ const SCENARIOS: Array<{ key: NonNullable<ScenarioKey>; emoji: string; i18nKey: 
   { key: 'peakHour',     emoji: '⚡', i18nKey: 'scenarios.peakHour' },
 ];
 
-const GRANULARIDADES = [
-  { value: 'day',   i18nKey: 'filters.granDay' },
-  { value: 'month', i18nKey: 'filters.granMonth' },
-  { value: 'year',  i18nKey: 'filters.granYear' },
-] as const;
-
 export function GlobalFilterBar() {
   const { t } = useTranslation();
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -24,11 +18,11 @@ export function GlobalFilterBar() {
     dataInicio: appliedDataInicio,
     dataFim:    appliedDataFim,   // período aplicado — só muda após "Aplicar Filtros"
     draft,
-    setDraftDateRange, setDraftSubsistema, setDraftGranularidade, applyDraftScenario,
+    setDraftDateRange, setDraftSubsistema, applyDraftScenario,
     applyFilters,
   } = useFiltersStore();
 
-  const { dataInicio, dataFim, subsistema, granularidade, scenario } = draft;
+  const { dataInicio, dataFim, subsistema, scenario } = draft;
   const { data: subsistemas = [] } = useSubsistemas();
 
   return (
@@ -70,25 +64,6 @@ export function GlobalFilterBar() {
               onChange={(e) => setDraftDateRange(dataInicio, e.target.value)}
               aria-label={t('filters.to')}
             />
-          </div>
-
-          <div className="filter-bar__divider" />
-
-          {/* Granularidade */}
-          <div className="filter-bar__section">
-            <span className="filter-label">{t('filters.granularity')}</span>
-            <div className="toggle-group" role="group" aria-label={t('filters.granularity')}>
-              {GRANULARIDADES.map((g) => (
-                <button
-                  key={g.value}
-                  id={`filter-gran-${g.value}`}
-                  className={`toggle-btn${granularidade === g.value ? ' active' : ''}`}
-                  onClick={() => setDraftGranularidade(g.value)}
-                >
-                  {t(g.i18nKey)}
-                </button>
-              ))}
-            </div>
           </div>
 
           <div className="filter-bar__divider" />

@@ -112,7 +112,6 @@ export interface IntercambioItem {
 }
 
 // ── Filter Store ─────────────────────────────────────────────
-export type Granularidade = 'day' | 'month' | 'year';
 
 export type ScenarioKey = 'drought' | 'thermalCrisis' | 'peakHour' | null;
 
@@ -120,7 +119,6 @@ export interface FilterValues {
   dataInicio: string;
   dataFim: string;
   subsistema: string | null;
-  granularidade: Granularidade;
   scenario: ScenarioKey;
 }
 
@@ -130,7 +128,6 @@ export interface FiltersState extends FilterValues {
   // Actions
   setDraftDateRange: (inicio: string, fim: string) => void;
   setDraftSubsistema: (sub: string | null) => void;
-  setDraftGranularidade: (g: Granularidade) => void;
   applyDraftScenario: (key: ScenarioKey) => void;
   
   applyFilters: () => void;
@@ -142,7 +139,6 @@ export interface KpiQueryParams {
   dataInicio: string;
   dataFim: string;
   subsistema?: string | null;
-  granularidade?: Granularidade;
   topN?: number;
   ano?: number;
 }
